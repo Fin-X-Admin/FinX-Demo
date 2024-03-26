@@ -79,7 +79,6 @@ networkx==3.0
 numexpr==2.8.7
 numpy==1.24.2
 oauthlib==3.2.2
-onnxruntime==1.17.1
 openai==0.28.1
 openapi-schema-pydantic==1.2.4
 opencv-python==4.7.0.72

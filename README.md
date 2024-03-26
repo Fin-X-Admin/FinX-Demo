@@ -22,3 +22,8 @@ Setup
           streamlit run app.py
 
 
+
+![Screenshot (107)](https://github.com/Fin-X-Admin/FinX-Demo/assets/164788719/6a8e0399-c9ba-49ae-9b75-65aabacf4a4a)
+
+
+

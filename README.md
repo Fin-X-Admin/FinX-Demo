@@ -11,15 +11,16 @@ Features
   Retirement Planning: Generates a five-year budgeting plan aimed at achieving a comfortable retirement by age 50 based on the user's input.
 
 Setup
-  Clone the repo.
-  Install the required dependencies:
+
+  1. Clone the repo.
+  2. Install the required dependencies:
          pip install openai langchain streamlit python-decouple
          
-  Obtain an OpenAI API key and set it as an environment variable. 
+  3. Obtain an OpenAI API key and set it as an environment variable. 
 
-  Create a .env file in the root directory and add your OpenAI API key:
+  4. Create a .env file in the root directory and add your OpenAI API key:
           OPEN_API_KEY=your_openai_api_key_here
-  Run the Streamlit app:
+  5. Run the Streamlit app:
           streamlit run app.py
 
 

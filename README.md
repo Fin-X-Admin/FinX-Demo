@@ -14,14 +14,18 @@ Setup
 
   1. Clone the repo.
   2. Install the required dependencies:
+     
          pip install openai langchain streamlit python-decouple
          
-  3. Obtain an OpenAI API key and set it as an environment variable. 
+  4. Obtain an OpenAI API key and set it as an environment variable. 
 
-  4. Create a .env file in the root directory and add your OpenAI API key:
+  5. Create a .env file in the root directory and add your OpenAI API key:
+     
           OPEN_API_KEY=your_openai_api_key_here
-  5. Run the Streamlit app:
+  7. Run the Streamlit app:
           streamlit run app.py
+
+
 
 
 

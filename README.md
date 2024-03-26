@@ -27,3 +27,8 @@ Setup
 
 
 
+![Screenshot (111)](https://github.com/Fin-X-Admin/FinX-Demo/assets/164788719/ecc4e776-3b70-454f-af6e-77c4979303dc)
+![Screenshot (110)](https://github.com/Fin-X-Admin/FinX-Demo/assets/164788719/fea849de-51fa-40e4-9aef-a89c51cca097)
+![Screenshot (109)](https://github.com/Fin-X-Admin/FinX-Demo/assets/164788719/76e4b51f-a809-4938-bfef-58463e993861)
+![Screenshot (108)](https://github.com/Fin-X-Admin/FinX-Demo/assets/164788719/68c9897e-f120-4866-99c5-4c6a80280119)
+

@@ -10,7 +10,7 @@ from decouple import config
               # Question user in a consultant tone and get only the details of age, marital status, annual income, cost of living and devise
               # a budgeting plan after the information is retrieved. And make a planning for monthly budget.
 
-os.environ['OPENAI_API_KEY'] = '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'
+os.environ['OPEN_API_KEY'] = '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'
 
 prompt1 = PromptTemplate(
   input_variables = ["chat_history", "question"],

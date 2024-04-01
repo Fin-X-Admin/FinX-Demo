@@ -1,4 +1,5 @@
 import os
+import re
 import streamlit as st
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -78,4 +79,84 @@ if st.session_state.messages[-1]["role"] != "assistant":
   st.session_state.messages.append(new_ai_message)
 
 
+######################################################
+
+# Extracting User info on the sidebar 
+
+# Initialize session state for user info if not already set
+if 'user_info' not in st.session_state:
+    st.session_state.user_info = {}
+
+# Function to extract user information from the prompt
+def extract_user_info(prompt1):
+    user_info = {}
+
+    # Extract annual income
+    income_match = re.search(r'annual income is (\d+)', prompt1, re.IGNORECASE)
+    if income_match:
+        user_info['annual_income'] = int(income_match.group(1))
+    
+    income_match = re.search(r'annual income of (\d+)', prompt1, re.IGNORECASE) #r'annual income of (\d+)'
+    if income_match:
+        user_info['annual_income'] = int(income_match.group(1))
+
+    income_match = re.search(r'make around (\d+)', prompt1, re.IGNORECASE) 
+    if income_match:
+        user_info['annual_income'] = int(income_match.group(1))
+
+  
+
+    #Extracting Martal Status 
+    marital_status_match = re.search(r'marital status is (\w+)', prompt1, re.IGNORECASE)
+    if marital_status_match:
+        user_info['marital_status'] = marital_status_match.group(1)
+    
+    marital_status_match = re.search(r'I am (\w+)', prompt1, re.IGNORECASE)
+    if marital_status_match:
+        user_info['marital_status'] = marital_status_match.group(1)
+    
+    # Extract cost of living
+    cost_of_living_match = re.search(r'cost of living is (\d+)', prompt1, re.IGNORECASE)
+    if cost_of_living_match:
+        user_info['cost_of_living'] = int(cost_of_living_match.group(1))
+    
+    cost_of_living_match = re.search(r'living cost of (\d+)', prompt1, re.IGNORECASE)
+    if cost_of_living_match:
+        user_info['cost_of_living'] = int(cost_of_living_match.group(1))
+    
+    cost_of_living_match = re.search(r'cost is (\d+)', prompt1, re.IGNORECASE)
+    if cost_of_living_match:
+        user_info['cost_of_living'] = int(cost_of_living_match.group(1))
+    
+    cost_of_living_match = re.search(r'cost (\d+)', prompt1, re.IGNORECASE)
+    if cost_of_living_match:
+        user_info['cost_of_living'] = int(cost_of_living_match.group(1))
+    
+    # Extract age
+    age_match = re.search(r'age is (\d+)', prompt1, re.IGNORECASE)
+    if age_match:
+        user_info['age'] = int(age_match.group(1))
+
+    age_match = re.search(r'I am (\d+)', prompt1, re.IGNORECASE)
+    if age_match:
+        user_info['age'] = int(age_match.group(1))
+
+    return user_info
+
+
+# Collect user prompt from atop
+# user_prompt = st.chat_input()
+
+
+# Extract and store user information in session state
+if user_prompt:
+    extracted_info = extract_user_info(user_prompt)
+    st.session_state.user_info.update(extracted_info)
+
+# Display user info in the sidebar
+with st.sidebar:
+    st.subheader("User Information")
+    if 'user_info' in st.session_state and st.session_state.user_info:
+        for key, value in st.session_state.user_info.items():
+            st.write(f"{key.capitalize()}: {value}")
 

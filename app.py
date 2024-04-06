@@ -4,8 +4,8 @@ import streamlit as st
 
 # Google sheets as DB
 
-import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+# import pandas as pd
+# from streamlit_gsheets import GSheetsConnection
 
 
 #############

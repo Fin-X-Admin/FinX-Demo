@@ -4,8 +4,8 @@ import streamlit as st
 
 # Google sheets as DB
 
-# import pandas as pd
-# from streamlit_gsheets import GSheetsConnection
+import pandas as pd
+from streamlit_gsheets import GSheetsConnection
 
 
 #############
@@ -217,9 +217,9 @@ with st.sidebar:
 
 
 # Establishing a Google Sheets connection
-# conn = st.experimental_connection("gsheets", type=GSheetsConnection)
-# if st.button("New Worksheet"):
-#     conn.create(worksheet="Orders", data=extracted_info)
-#     st.success("Worksheet Created 🎉")
+conn = st.connection("gsheets", type=GSheetsConnection)
+data = conn.read(worksheet="Sheet1")
+
+print(data)
 
 #-------------------------------------------#

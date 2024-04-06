@@ -116,6 +116,16 @@ st.set_page_config(
   layout="wide"
 )
 
+# Fonts and style
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 st.title("Finance Planning Advice Bot")
 
 if "messages" not in st.session_state.keys():

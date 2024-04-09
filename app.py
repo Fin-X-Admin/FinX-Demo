@@ -4,8 +4,8 @@ import streamlit as st
 import json 
 from typing import List
 # Google sheets as DB
-import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+# import pandas as pd
+# from streamlit_gsheets import GSheetsConnection
 #############
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
@@ -200,14 +200,14 @@ with st.sidebar:
 
 
 #Establishing a Google Sheets connection
-conn = st.connection("gsheets", type=GSheetsConnection)
-data = conn.read(worksheet="Sheet1")
+# conn = st.connection("gsheets", type=GSheetsConnection)
+# data = conn.read(worksheet="Sheet1")
 
-del data["Unnamed: 4"]
-data = data.dropna(how="all")
-st.dataframe(data)
+# del data["Unnamed: 4"]
+# data = data.dropna(how="all")
+# st.dataframe(data)
 
-conn.update(worksheet="Sheet1", data=data)
+# conn.update(worksheet="Sheet1", data=data)
 
 
 

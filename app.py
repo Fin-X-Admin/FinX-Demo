@@ -21,7 +21,9 @@ class user_detail(BaseModel):
     # user_data: dict = Field(description="The output should only contain a JSON instance that conforms to the JSON schema below. Here is the output schema delimited by triple backticks: ```{'Annual_income': '20000', 'Marital_Status': 'Single', ...}```")
     annual_income: int = Field(description="integer")
     marital_status: str = Field(description="single or married")
-    cost_of_living: int = Field(description="Integer value, default value be 30 percent of annual income")
+    cost_of_living: int = Field(description="Integer value")
+    age: int = Field(description="Integer value, User's age")
+    
 
 # os.environ['OPEN_API_KEY'] = ''
 st.set_page_config(
@@ -29,39 +31,6 @@ st.set_page_config(
   page_icon="🤖",
   layout="wide"
 )
-
-
-
-
-# Function to extract user information from the prompt
-def extract_user_info(arg):
-    user_info = {}
-
-    print(user_info)
-    # Extract annual income
-    income_match = re.search(r'"Annual Income": (\d+)', arg, re.IGNORECASE)
-    if income_match:
-        user_info['Annual Income ₹'] = int(income_match.group(1))
-  
-    #Extracting Martal Status 
-    marital_status_match = re.search(r'Marital Status: (\w+)', arg, re.IGNORECASE)
-    marital_status_match = re.search(r'"Marital Status": (\w+)', arg, re.IGNORECASE)
-    if marital_status_match:
-        user_info['Marital Status'] = marital_status_match.group(1)
-    
-    
-    # Extract cost of living
-    cost_of_living_match = re.search(r'"Cost of Living": (\d+)', arg, re.IGNORECASE)
-    if cost_of_living_match:
-        user_info['Cost of Living ₹'] = int(cost_of_living_match.group(1))
-    
-    # Extract age
-    age_match = re.search(r'"Age": (\d+)', arg, re.IGNORECASE)
-    if age_match:
-        user_info['Age'] = int(age_match.group(1))
-
-    return user_info
-
 
 
 user_prompt = st.chat_input()
@@ -118,7 +87,7 @@ prompt2 = PromptTemplate(
 
               update keys if user updates any 
             
-              only reply with dictionary and nothing else 
+              only reply with dictionary and nothing else and do not populate it unless the user has provided these informations
               chat_history: {chat_history}
               Human: {human_input} 
 
@@ -126,7 +95,6 @@ prompt2 = PromptTemplate(
               #parser
               partial_variables={"format_instructions": parser.get_format_instructions()},
 )
-
 
 
 memory = ConversationBufferMemory(memory_key="chat_history", llm=llm)
@@ -146,6 +114,7 @@ llm_chain_2  = LLMChain(
 )
 
 
+# Fonts and Style
 hide_st_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -179,12 +148,13 @@ def process_data(parsed_output):
    user_data = {
       'annual_income' : parsed_output.annual_income,
       'marital_status': parsed_output.marital_status,
-      'cost_of_living': parsed_output.cost_of_living
+      'cost_of_living': parsed_output.cost_of_living,
+      'age': parsed_output.age
    }
    user_data_json = json.dumps(user_data)
    print(user_data)
    print(user_data_json)
-  #  st.session_state.user_info.update(user_data)
+   st.session_state.user_info.update(user_data)
 
 
 
@@ -200,15 +170,10 @@ if st.session_state.messages[-1]["role"] != "assistant":
 
       ai_dict = llm_chain_2.predict(human_input=user_prompt)
       parsed_output = output_parser.parse(ai_dict)
+      print("This is Parsed Output:", parsed_output)
 
       #JSON format and Dictionary format output
       process_data(parsed_output) 
-
-
-      extracted_info = extract_user_info(ai_dict)
-
-      st.session_state.user_info.update(extracted_info)
-
 
   new_ai_message = {"role": "assistant", "content": ai_response}
   st.session_state.messages.append(new_ai_message)
@@ -220,17 +185,6 @@ if st.session_state.messages[-1]["role"] != "assistant":
 # Initialize session state for user info if not already set
 if 'user_info' not in st.session_state:
     st.session_state.user_info = {}
-
-
-
-# Collect user prompt from atop
-# user_prompt = st.chat_input()
-
-
-# Extract and store user information in session state
-if user_prompt:
-    extracted_info = extract_user_info(user_prompt)
-    st.session_state.user_info.update(extracted_info)
 
 # Display user info in the sidebar
 with st.sidebar:
@@ -249,18 +203,12 @@ with st.sidebar:
 conn = st.connection("gsheets", type=GSheetsConnection)
 data = conn.read(worksheet="Sheet1")
 
-# print(data)
-#extracted data to pd.dataframe
-# ex_data = pd.DataFrame(ai_dict)
-
-# conn.update(worksheet="Sheet1", data=ex_data)
-
-
+del data["Unnamed: 4"]
+data = data.dropna(how="all")
 st.dataframe(data)
 
-# if st.button("New Worksheet"):
-#     conn.create(worksheet="Orders", data=extracted_info)
-#     st.success("Worksheet Created 🎉")
-  
+conn.update(worksheet="Sheet1", data=data)
+
+
 
 #-------------------------------------------#

@@ -246,8 +246,8 @@ with st.sidebar:
 
 
 #Establishing a Google Sheets connection
-# conn = st.connection("gsheets", type=GSheetsConnection)
-# data = conn.read(worksheet="Sheet1")
+conn = st.connection("gsheets", type=GSheetsConnection)
+data = conn.read(worksheet="Sheet1")
 
 # print(data)
 #extracted data to pd.dataframe
@@ -256,7 +256,7 @@ with st.sidebar:
 # conn.update(worksheet="Sheet1", data=ex_data)
 
 
-# st.dataframe(data)
+st.dataframe(data)
 
 # if st.button("New Worksheet"):
 #     conn.create(worksheet="Orders", data=extracted_info)

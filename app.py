@@ -181,7 +181,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
 
       #Establishing a Google Sheets connection
       conn = st.connection("gsheets", type=GSheetsConnection)
-      data = conn.read(worksheet="Sheet1")
+      #data = conn.read(worksheet="Sheet1")
 
       up_data = conn.update(worksheet="Sheet1", data=sheet_data)
       del data["Unnamed: 4"]

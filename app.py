@@ -25,7 +25,8 @@ class user_detail(BaseModel):
     age: int = Field(description="Integer value, User's age, default: 0")
     
 
-#os.environ['OPEN_API_KEY'] = ''
+# Input API key here
+os.environ['OPEN_API_KEY'] = ''
 
 
 st.set_page_config(

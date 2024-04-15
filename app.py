@@ -25,7 +25,7 @@ class user_detail(BaseModel):
     age: int = Field(description="Integer value, User's age, default: 0")
     
 
-os.environ['OPEN_API_KEY'] = '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'
+#os.environ['OPEN_API_KEY'] = ''
 
 
 st.set_page_config(

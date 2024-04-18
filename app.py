@@ -39,6 +39,14 @@ st.set_page_config(
 user_prompt = st.chat_input()
 llm = ChatOpenAI(openai_api_key = config("OPEN_API_KEY"),  temperature=0)  #model="gpt-4",
 
+              # Ehample used 
+              # examples = [
+              #     AI: "What is your annual income?", 
+              #     human_input: "I make 20 lacs",
+              #     AI: "Okay, Could you provide your other information such as marital status?", 
+              #     human_input: "I am Married",
+              # ]
+
 
 prompt1 = PromptTemplate(
   input_variables = ["chat_history", "human_input"],
@@ -101,18 +109,21 @@ prompt2 = PromptTemplate(
 
 
 memory = ConversationBufferMemory(memory_key="chat_history", llm=llm)
+#memory2 = ConversationBufferMemory(memory_key="chat_history", llm=llm)
+
 llm_chain = LLMChain(
   llm=llm,
   memory=memory,
   prompt=prompt1,
+  verbose=True,
 )
 
 ## LLM chain 2 used in prompt2
-memory2 = ConversationBufferMemory(memory_key="chat_history", llm=llm)
 llm_chain_2  = LLMChain(
   llm=llm,
-  memory=memory2,
+  memory=memory, #using the same memory for both the chains
   prompt=prompt2,
+  verbose=True,
   
 )
 
